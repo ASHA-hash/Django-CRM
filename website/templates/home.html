@@ -2,14 +2,44 @@
 
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
+<!--<div class="col-md-6 offset-md-3">-->
 {% if user.is_authenticated %}
-    <h1> Hello Shiva!</h1>
+<!--    <h1> Hello Shiva!</h1>-->
+<h1>Records...</h1>
 
+    <table class="table table-striped table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">ID</th>
+    </tr>
+  </thead>
+  <tbody>
+
+ {% if records %}
+    {% for record in records %}
+ <tr>
+     <td>{{ record.first_name }}</td>
+     <td>{{ record.last_name }}</td>
+     <td>{{ record.email }}</td>
+     <td>{{ record.phone }}</td>
+     <td><a href="{% url 'record' record.id %}">{{ record.id }}</a> </td><br><br>
+
+     </tr>
+    {% endfor %}
+    {% endif %}
     {% else %}
+
+  </tbody>
+</table>
+
 <h1>Login</h1>
     <br>
-
+<div class="col-md-6 offset-md-3">
     <form method="POST" action="{% url 'home' %}">
         {% csrf_token %}
         <form>
@@ -27,6 +57,6 @@
 </form>
     </form>
 
-</div>
+<!--</div>-->
 {% endif %}
 {% endblock %}
